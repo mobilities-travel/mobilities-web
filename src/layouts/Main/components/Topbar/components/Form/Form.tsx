@@ -41,10 +41,10 @@ type IFormInput = {
 };
 
 const Form = ({
-	handleAuthModal,
-	handleAuthByEmail,
-	authByEmail,
-}: Props): JSX.Element => {
+								handleAuthModal,
+								handleAuthByEmail,
+								authByEmail,
+							}: Props): JSX.Element => {
 	const dispatch: AppDispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
@@ -72,14 +72,14 @@ const Form = ({
 			if (response?.error !== '') {
 				setError(response?.error as string);
 				dispatch(
-					displaySnackMessage({ message: error as string, severity: 'error' })
+					displaySnackMessage({ message: error as string, severity: 'error' }),
 				);
 			} else {
 				setError(null);
 				dispatch(
 					displaySnackMessage({
 						message: 'You have successfully logged in',
-					})
+					}),
 				);
 			}
 		} catch (e) {
@@ -88,7 +88,7 @@ const Form = ({
 				displaySnackMessage({
 					message: error as string,
 					severity: 'error',
-				})
+				}),
 			);
 		} finally {
 			handleAuthModal();
@@ -96,24 +96,24 @@ const Form = ({
 		}
 	};
 
-	const handleGoogleLogin = async () => await signIn('googleLogin');
+	const handleGoogleLogin = async () => await signIn('google');
 
 	const renderContinueWithEmail = (): JSX.Element => (
-		<form name="email-login" onSubmit={handleSubmit(onSubmit)}>
-			<input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+		<form name='email-login' onSubmit={handleSubmit(onSubmit)}>
+			<input name='csrfToken' type='hidden' defaultValue={csrfToken} />
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
 					<FormInputText
-						name="email"
-						margin="dense"
-						size="medium"
+						name='email'
+						margin='dense'
+						size='medium'
 						control={control}
-						label="Email"
-						type="text"
-						placeholder="blah@blah.com"
+						label='Email'
+						type='text'
+						placeholder='blah@blah.com'
 						InputProps={{
 							endAdornment: (
-								<InputAdornment position="end">
+								<InputAdornment position='end'>
 									<AlternateEmailTwoTone />
 								</InputAdornment>
 							),
@@ -123,19 +123,19 @@ const Form = ({
 
 				<Grid item xs={12}>
 					<FormInputText
-						name="password"
-						margin="dense"
-						size="medium"
+						name='password'
+						margin='dense'
+						size='medium'
 						control={control}
-						label="Password"
+						label='Password'
 						type={isPasswordHidden ? 'text' : 'password'}
-						placeholder="Blah123$"
+						placeholder='Blah123$'
 						InputProps={{
 							endAdornment: (
 								<InputAdornment
 									style={{ cursor: 'pointer' }}
 									onClick={togglePassword}
-									position="end"
+									position='end'
 								>
 									{isPasswordHidden ? <Visibility /> : <VisibilityOff />}
 								</InputAdornment>
@@ -146,7 +146,7 @@ const Form = ({
 
 				<Grid item container xs={12}>
 					<Box
-						display="flex"
+						display='flex'
 						flexDirection={{ xs: 'column', sm: 'row' }}
 						alignItems={{ xs: 'stretched', sm: 'center' }}
 						justifyContent={'space-between'}
@@ -157,13 +157,13 @@ const Form = ({
 						<LoadingButton
 							autoFocus
 							fullWidth
-							variant="contained"
-							type="submit"
-							color="primary"
-							size="large"
+							variant='contained'
+							type='submit'
+							color='primary'
+							size='large'
 							// disabled={!isValid}
 							loading={isLoading}
-							loadingIndicator="Please wait..."
+							loadingIndicator='Please wait...'
 						>
 							Login
 						</LoadingButton>
@@ -177,8 +177,8 @@ const Form = ({
 		<Grid container spacing={4}>
 			<Grid item xs={12}>
 				<Button
-					size="large"
-					variant="outlined"
+					size='large'
+					variant='outlined'
 					fullWidth
 					startIcon={<GoogleIcon />}
 					onClick={handleGoogleLogin}
@@ -188,8 +188,8 @@ const Form = ({
 			</Grid>
 			<Grid item xs={12}>
 				<Button
-					size="large"
-					variant="outlined"
+					size='large'
+					variant='outlined'
 					fullWidth
 					startIcon={<EmailRounded />}
 					onClick={handleAuthByEmail}

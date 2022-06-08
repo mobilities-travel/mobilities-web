@@ -1,26 +1,23 @@
 import {
+	cloneElement,
+	MouseEvent,
 	ReactElement,
 	ReactNode,
-	MouseEvent,
 	useState,
-	cloneElement,
 } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
-	Slide,
-	Box,
-	Toolbar,
-	useScrollTrigger,
 	AppBar,
+	Box,
 	Divider,
-	Fab,
+	Slide,
+	useScrollTrigger,
 	Zoom,
 } from '@mui/material';
 
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from './components';
-import { KeyboardArrowUpRounded } from '@mui/icons-material';
+import { Topbar } from './components';
 import Modal from '../../components/atoms/Modal';
 import { ContactForm } from './components/Topbar/components';
 
@@ -43,10 +40,10 @@ interface ScrollTopProps {
 }
 
 function ElevationScroll({
-	children,
-	window,
-	isMobileView,
-}: AppBarOnScrollProps) {
+													 children,
+													 window,
+													 isMobileView,
+												 }: AppBarOnScrollProps) {
 	// Note that you normally won't need to set the window ref as useScrollTrigger
 	// will default to window.
 	// This is only being set here because the demo is in an iframe.
@@ -57,7 +54,7 @@ function ElevationScroll({
 	});
 
 	return isMobileView ? (
-		<Slide appear={false} direction="down" in={!trigger}>
+		<Slide appear={false} direction='down' in={!trigger}>
 			{children}
 		</Slide>
 	) : (
@@ -91,7 +88,7 @@ const ScrollTop = ({ window, children }: ScrollTopProps) => {
 		<Zoom in={trigger}>
 			<Box
 				onClick={handleClick}
-				role="presentation"
+				role='presentation'
 				sx={{ position: 'fixed', bottom: 16, right: 16 }}
 			>
 				{children}
@@ -101,10 +98,10 @@ const ScrollTop = ({ window, children }: ScrollTopProps) => {
 };
 
 const Main = ({
-	children,
-	colorInvert = false,
-	bgcolor = 'transparent',
-}: Props): JSX.Element => {
+								children,
+								colorInvert = false,
+								bgcolor = 'transparent',
+							}: Props): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
@@ -138,8 +135,8 @@ const Main = ({
 		<Modal
 			fullScreen={isSm}
 			isModalOpen={openContactModal}
-			renderHeader="Contact us"
-			renderDialogText="Get in touch with us"
+			renderHeader='Contact us'
+			renderDialogText='Get in touch with us'
 			renderContent={<ContactForm handleContactModal={handleContactModal} />}
 			onClose={handleContactModal}
 			onDismiss={handleContactModal}
@@ -161,32 +158,14 @@ const Main = ({
 			>
 				<Container paddingY={1}>
 					<Topbar
-						onSidebarOpen={handleSidebarOpen}
-						handleContactModal={handleContactModal}
 						colorInvert={trigger ? false : colorInvert}
 					/>
 				</Container>
 			</AppBar>
-			<div id="back-to-top-anchor" />
-			<Sidebar
-				onClose={handleSidebarClose}
-				handleContactModal={handleContactModal}
-				open={open}
-				variant="temporary"
-			/>
 			<main>
 				{children}
 				<Divider />
 			</main>
-			{renderContactModal()}
-			<ScrollTop>
-				<Fab color="secondary" size="small" aria-label="scroll back to top">
-					<KeyboardArrowUpRounded />
-				</Fab>
-			</ScrollTop>
-			<Container paddingY={4}>
-				<Footer />
-			</Container>
 		</Box>
 	);
 };

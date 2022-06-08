@@ -81,7 +81,7 @@ export default NextAuth({
 			},
 		}),
 		GoogleProvider({
-			id: 'googleLogin',
+			id: 'google',
 			clientId: environment.googleClientId,
 			clientSecret: environment.googleClientSecret,
 		}),
